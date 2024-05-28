@@ -1,0 +1,14 @@
+---
+title: "How to collate the data"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(ecotourism)
+```
