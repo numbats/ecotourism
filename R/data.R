@@ -8,6 +8,7 @@
 #'   \item lon, lat spatial coordinates of the sighting
 #'   \item date, year, month, wday, time of sighting
 #'   \item source, original provider of the record
+#'   \item stnid, station id for the nearest weather station
 #' }
 #'
 #' @name cuttlefish
@@ -77,3 +78,21 @@
 #'
 #' head(oz_lga)
 "oz_lga"
+
+#' stations
+#'
+#' This is the nearest stations for each records in cuttlefish data
+#'
+#' \itemize{
+#'   \item stnid, record id given by Atlas
+#'   \item lon, lat spatial coordinates of the sighting
+#' }
+#'
+#' @name stations
+#' @docType data
+#' @format A 750 x 3 numeric array
+#' @keywords datasets
+#' @examples
+#'
+#' head(stations)
+"stations"

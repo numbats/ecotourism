@@ -20,6 +20,7 @@ Sightings of cuttlefish downloaded from https://www.ala.org.au
 \item lon, lat spatial coordinates of the sighting
 \item date, year, month, wday, time of sighting
 \item source, original provider of the record
+\item stnid, station id for the nearest weather station
 }
 }
 \examples{
