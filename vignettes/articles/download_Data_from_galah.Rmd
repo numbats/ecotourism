@@ -1,6 +1,6 @@
 
 ---
-title: "Downloading Sepia apama Data using galah Package"
+title: "Downloading Data using galah Package"
 author: ""
 date: "`r Sys.Date()`"
 output: html_document
@@ -8,7 +8,7 @@ output: html_document
 
 ## Introduction
 
-This manual provides a step-by-step guide on how to download data for the species *Sepia apama* (Giant Cuttlefish) using the `galah` package in R. The `galah` package is an interface to the Atlas of Living Australia (ALA) APIs, which allows you to query and download biodiversity data.
+This manual provides a step-by-step guide on how to download data for the species  for example *Sepia apama* (Giant Cuttlefish) using the `galah` package in R. The `galah` package is an interface to the Atlas of Living Australia (ALA) APIs, which allows you to query and download biodiversity data.
 
 ## Prerequisites
 
@@ -35,10 +35,10 @@ library(galah)
 Before you can download data, you need to configure the `galah` package with your email. This email will be used to identify your requests to the ALA servers.
 
 ``` r
-galah_config(email = "januaryvv123@gmail.com")
+galah_config(email = "youremail@email.com")
 ```
 
-Replace `"januaryvv123@gmail.com"` with your own email address.
+Replace `"youremail@email.com"` with your own email address.
 
 ## Downloading Sepia apama Data
 
