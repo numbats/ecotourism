@@ -10,7 +10,7 @@
 #'   \item source, original provider of the record
 #' }
 #'
-#' @name Cuttlefish sightings
+#' @name cuttlefish
 #' @docType data
 #' @format A 750 x 9 numeric array
 #' @keywords datasets
@@ -31,7 +31,7 @@
 #'   \item tmax, tmin temperature in Celsius
 #' }
 #'
-#' @name Weather records near sightings
+#' @name weather 
 #' @docType data
 #' @format A 15274 x 9 numeric array
 #' @keywords datasets
@@ -51,7 +51,7 @@
 #'   \item Trips
 #' }
 #'
-#' @name Tourism counts
+#' @name tourism
 #' @docType data
 #' @format A 1228000 x 4 numeric array
 #' @keywords datasets
@@ -61,6 +61,19 @@
 #' data(tourism)
 #' tourism <- tourism |>
 #'   mutate(Quarter = yearquarter(myd(Quarter))) |>
-#'   as_tsibble(key = c(Region, Purpose), index = Quarter))
+#'   as_tsibble(key = c(Region, Purpose), index = Quarter)
 #'
 "tourism"
+
+#' oz_lga
+#'
+#' LGA polygons for Australia
+#'
+#' @name oz_lga
+#' @docType data
+#' @format A spatial polygon object 
+#' @keywords datasets
+#' @examples
+#'
+#' head(oz_lga)
+"oz_lga"

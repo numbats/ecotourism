@@ -7,14 +7,22 @@ library(plotly)
 library(lubridate)
 library(tsibble)
 library(rnoaa)
+library(galah)
 
 # Original file, wrong name
-load("data-raw/giant_cuttlefish.rda")
-cuttlefish <- new_sepia_apama
-save(cuttlefish, file="data-raw/giant_cuttlefish.rda")
+#load("data-raw/giant_cuttlefish.rda")
+#cuttlefish <- new_sepia_apama
+#save(cuttlefish, file="data-raw/giant_cuttlefish.rda")
+galah_config(email = "dicook@monash.edu")
+sepia <- galah_call() |>
+  galah_identify("Sepia apama") |>
+  galah_select(basisOfRecord, recordedBy, recordedByID, eventType, group = c("basic", "event")) |>
+  atlas_occurrences()
+
+write_csv(sepia, file="data-raw/giant_cuttlefish.csv")
 
 # Clean data
-cuttlefish <- cuttlefish |>
+cuttlefish <- sepia |>
   rename(lon = decimalLongitude,
          lat = decimalLatitude,
          date = eventDate,
@@ -46,12 +54,15 @@ cuttlefish |>
   ggplot(aes(month, count)) +
   geom_point() +
   geom_smooth(se=FALSE, colour="grey60")
+save(cuttlefish, file="data/cuttlefish.rda")
 
 # Check geography
 oz <- ozmap_data("abs_lga")
 oz_small <- ms_simplify(oz)
+oz_lga <- oz_small
+save(oz_lga, file="data/oz_lga.rda")
 
-ggplot(oz) +
+ggplot(oz_lga) +
   geom_sf(colour="white", fill="grey90") +
   geom_point(data=cuttlefish, aes(x=lon, y=lat,
                                   label=date),
@@ -65,7 +76,7 @@ ggplotly()
 
 # Zoom to small regions
 whyalla <- tibble(lon=137.5756, lat=-33.0346)
-ggplot(oz) +
+ggplot(oz_lga) +
   geom_sf(colour="white", fill="grey90") +
   geom_point(data=cuttlefish, aes(x=lon, y=lat,
                                   label=date),
@@ -77,8 +88,6 @@ ggplot(oz) +
   theme_map()
 ggplotly()
 
-save(cuttlefish, file="data/giant_cuttlefish.rda")
-
 # Weather
 load("data-raw/weather.rda")
 weather <- joined |>
@@ -87,18 +96,31 @@ weather <- joined |>
 save(weather, file="data/weather.rda")
 
 # More stations
-aus_stations <- ghcnd_stations() |>
+download_stns <- ghcnd_stations()
+aus_stations <- download_stns |>
   filter(str_starts(id, "ASN")) |>
   filter(last_year >= 2020) |>
   mutate(wmo_id = as.numeric(wmo_id),
          name = str_to_lower(name)) |>
   select(-state, -gsn_flag) |>
-  filter(element %in% c("PRCP", "TMAX", "TMIN")) |>
-  nest(element: last_year) |>
-  rowwise() |>
-  filter(nrow(data) == 3) |>
-  select(-data)
+  rename(stnid = id,
+         lon = longitude,
+         lat = latitude)
 
+ggplot(oz_lga) +
+  geom_sf(colour="white", fill="grey90") +
+  geom_point(data=cuttlefish, aes(x=lon, y=lat,
+                                  label=date),
+             colour="#EA6900", alpha=0.5) +
+  geom_point(data=aus_stations, aes(x=lon, y=lat,
+                                  label=stnid),
+             colour="#3B99B1", alpha=0.5, shape=4) +
+  xlim(c(113.09, 153.38)) +
+  ylim(c(-43.38, -10.41)) +
+  theme_map()
+ggplotly()
+
+write_csv(aus_stations, file="data-raw/aus_stations.csv")
 
 # Tourism
 # load("data-raw/tourism.rda") # Qtr isn't saved correctly
