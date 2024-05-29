@@ -88,6 +88,17 @@ ggplot(oz_lga) +
   theme_map()
 ggplotly()
 
+# Extract centroids
+oz_centroids <- st_centroid(oz_lga)
+oz_coords <- st_coordinates(oz_centroids)
+oz_lga_cent <- oz_centroids |>
+  select(NAME) |>
+  rename(name = NAME) |>
+  as_tibble() |>
+  mutate(lon = oz_coords[,1],
+         lat = oz_coords[,2])
+write_csv(oz_lga_cent, file="data-raw/oz_lga_cent.csv")
+
 # Weather
 load("data-raw/weather.rda")
 weather <- joined |>

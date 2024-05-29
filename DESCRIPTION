@@ -10,7 +10,9 @@ Authors@R:
     person("Javad", "Vahdat", email="vahdatjavad@gmail.com", role = c("aut"),
            comment = c(ORCID = "0009-0004-5845-2584"))           
     )
-Description: What the package does (one paragraph).
+Description: This is a collection of data files for 
+  exploring sightings of wild things, relative to weather 
+  and tourism patterns in Australia.
 License: MIT + file LICENSE
 Suggests: 
     testthat (>= 3.0.0)
