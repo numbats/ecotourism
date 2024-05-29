@@ -50,6 +50,8 @@
 #'   \item Region
 #'   \item Purpose
 #'   \item Trips
+#'   \item lon
+#'   \item lat
 #' }
 #'
 #' @name tourism

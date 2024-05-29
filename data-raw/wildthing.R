@@ -105,6 +105,9 @@ oz_lga_cent <- oz_lga_cent |>
   mutate(name = str_remove(name, "\\([^()]*\\)"))
 write_csv(oz_lga_cent, file="data-raw/oz_lga_cent.csv")
 
+oz_lga_cent <- oz_lga_cent |>
+  mutate(name = str_trim(name, "right"))
+write_csv(oz_lga_cent, file="data-raw/oz_lga_cent.csv")
 
 # Weather
 load("data-raw/weather.rda")
@@ -167,4 +170,23 @@ qtr_data <- long_data %>%
   )
 
 tourism <- qtr_data
+save(tourism, file="data/tourism.rda")
+
+# Try to add lon, lat
+name_match <- tourism |>
+  mutate(m1 = str_detect(tourism$Region, oz_lga_cent$name[1]))
+
+name_match |> filter(m1)
+
+tourism_latlon <- tourism |>
+  mutate(lon = NA, 
+         lat = NA)
+for (i in 1:nrow(oz_lga_cent)) {
+  cat(i, "\n")
+  name_match <- str_detect(tourism$Region, oz_lga_cent$name[i])
+  tourism_latlon <- tourism_latlon |>
+    mutate(lon = ifelse(name_match, oz_lga_cent$lon[i], lon),
+           lat = ifelse(name_match, oz_lga_cent$lat[i], lat))
+}
+tourism <- tourism_latlon
 save(tourism, file="data/tourism.rda")

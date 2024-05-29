@@ -19,6 +19,8 @@ Quarterly records of tourist counts in regions across the country
 \item Region
 \item Purpose
 \item Trips
+\item lon
+\item lat
 }
 }
 \examples{
