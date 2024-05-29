@@ -6,6 +6,7 @@ library(rmapshaper)
 library(plotly)
 library(lubridate)
 library(tsibble)
+library(rnoaa)
 
 # Original file, wrong name
 load("data-raw/giant_cuttlefish.rda")
@@ -84,6 +85,20 @@ weather <- joined |>
   select(id, long, lat, elev, name, date, prcp, tmax, tmin) |>
   rename(stnid = id, lon=long)
 save(weather, file="data/weather.rda")
+
+# More stations
+aus_stations <- ghcnd_stations() |>
+  filter(str_starts(id, "ASN")) |>
+  filter(last_year >= 2020) |>
+  mutate(wmo_id = as.numeric(wmo_id),
+         name = str_to_lower(name)) |>
+  select(-state, -gsn_flag) |>
+  filter(element %in% c("PRCP", "TMAX", "TMIN")) |>
+  nest(element: last_year) |>
+  rowwise() |>
+  filter(nrow(data) == 3) |>
+  select(-data)
+
 
 # Tourism
 # load("data-raw/tourism.rda") # Qtr isn't saved correctly
