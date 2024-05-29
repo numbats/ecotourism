@@ -9,11 +9,23 @@ output: html_document
 
 There are several data sets in the data:
 
-- `cuttlefish`: occurrences of giant cuttlefish 
-- `tourism`: quarterly counts of different types of tourism, holiday, visiting family, business, other
+- `cuttlefish`: occurrences of giant cuttlefish; links to weather and tourism by `stnid`
+- `tourism`: quarterly counts of different types of tourism, holiday, visiting family, business, other; links to weather by `stnid`
 - `weather`: daily min and max temperature records
 - `oz_lga`: spatial polygon map of Australian local government areas (LGAs) 
-- `stations`: weather station id's and spatial coordinates matching the occurrence data
+- `stations`: weather station id's and spatial coordinates matching the occurrence data, `stnid` is key for linking data sets.
 
 
 # Wild thing: cuttlefish
+
+![](images/cuttlefish.jpg)
+
+XXX Find source of image
+
+- Plot occurrences on map for spatial distribution
+- Aggregate occurrences on week or month or year to examine temporal patterns
+- Remember: this is sighting data, only available when people report
+
+# Weather
+
+# Tourism
