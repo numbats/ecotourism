@@ -1,0 +1,19 @@
+---
+title: "Example analyses with the data"
+author: "Dianne Cook"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+# About the data
+
+There are several data sets in the data:
+
+- `cuttlefish`: occurrences of giant cuttlefish 
+- `tourism`: quarterly counts of different types of tourism, holiday, visiting family, business, other
+- `weather`: daily min and max temperature records
+- `oz_lga`: spatial polygon map of Australian local government areas (LGAs) 
+- `stations`: weather station id's and spatial coordinates matching the occurrence data
+
+
+# Wild thing: cuttlefish
