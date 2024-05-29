@@ -1,0 +1,8 @@
+pandoc: 3.1.1
+pkgdown: 2.0.7
+pkgdown_sha: ~
+articles:
+  download_sighting_data_from_galah: download_sighting_data_from_galah.html
+  how-to-extract-tourism-data: how-to-extract-tourism-data.html
+last_built: 2024-05-29T05:09Z
+
