@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
 [![CRAN status](https://www.r-pkg.org/badges/version/ecotourism)](https://CRAN.R-project.org/package=ecotourism)
 <!-- badges: end -->
 
-The goal of ecotourism is to ...
+The goal of ecotourism is to provide data to use for example analyses. It has data on wild life (cuttlefish) occurrences, tourism counts by region and weather matching the locations.
 
 ## Installation
 
@@ -33,25 +33,22 @@ devtools::install_github("numbats/ecotourism")
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+Here is how to plot occurrences:
 
 ```{r example}
 library(ecotourism)
-## basic example code
+library(ggplot2)
+library(ggthemes)
+data(oz_lga)
+data(cuttlefish)
+ggplot(oz_lga) +
+  geom_sf(colour="white", fill="grey90") +
+  geom_point(data=cuttlefish, aes(x=lon, y=lat,
+                                  label=date),
+             colour="#EA6900", alpha=0.5) +
+  xlim(c(113.09, 153.38)) +
+  ylim(c(-43.38, -10.41)) +
+  theme_map()
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
 
-```{r cars}
-summary(cars)
-```
-
-You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date. `devtools::build_readme()` is handy for this.
-
-You can also embed plots, for example:
-
-```{r pressure, echo = FALSE}
-plot(pressure)
-```
-
-In that case, don't forget to commit and push the resulting figure files, so they display on GitHub and CRAN.
