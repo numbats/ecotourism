@@ -99,6 +99,13 @@ oz_lga_cent <- oz_centroids |>
          lat = oz_coords[,2])
 write_csv(oz_lga_cent, file="data-raw/oz_lga_cent.csv")
 
+# Remove extra stuff
+oz_lga_cent <- oz_lga_cent |>
+  select(name, lon, lat) |>
+  mutate(name = str_remove(name, "\\([^()]*\\)"))
+write_csv(oz_lga_cent, file="data-raw/oz_lga_cent.csv")
+
+
 # Weather
 load("data-raw/weather.rda")
 weather <- joined |>
