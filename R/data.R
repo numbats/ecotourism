@@ -52,6 +52,7 @@
 #'   \item Trips
 #'   \item lon
 #'   \item lat
+#'   \item stnid
 #' }
 #'
 #' @name tourism
