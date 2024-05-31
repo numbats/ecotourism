@@ -143,6 +143,10 @@ ggplotly()
 
 write_csv(aus_stations, file="data-raw/aus_stations.csv")
 
+# Weather data for subset of stations
+#stn1 <- ghcnd(stationid = stations$stnid)
+stn1_tidy <- meteo_tidy_ghcnd(stationid = stations$stnid, date_min = "2000-01-01")
+
 # Tourism
 # load("data-raw/tourism.rda") # Qtr isn't saved correctly
 domestic_trips <- read_csv(
