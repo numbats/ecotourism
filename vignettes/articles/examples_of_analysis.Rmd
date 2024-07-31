@@ -7,7 +7,7 @@ output: html_document
 
 # About the data
 
-There are several data sets in the data:
+There are several data sets in the package:
 
 - `cuttlefish`: occurrences of giant cuttlefish; links to weather and tourism by `stnid`
 - `tourism`: quarterly counts of different types of tourism, holiday, visiting family, business, other; links to weather by `stnid`
@@ -15,17 +15,36 @@ There are several data sets in the data:
 - `oz_lga`: spatial polygon map of Australian local government areas (LGAs) 
 - `stations`: weather station id's and spatial coordinates matching the occurrence data, `stnid` is key for linking data sets.
 
+![](images/data_schema.png)
 
 # Wild thing: cuttlefish
 
-![](images/cuttlefish.jpg)
+![Source: Chris Fewster at https://www.whyalla.com/cuttlefish](images/cuttlefish.jpg)
 
-XXX Find source of image
+```{r cuttlefish}
+#| echo: false
+#| message: false
+#| warning: false
+library(ecotourism)
+library(ggplot2)
+library(ggthemes)
+data(oz_lga)
+data(cuttlefish)
+ggplot(oz_lga) +
+  geom_sf(colour="white", fill="grey90") +
+  geom_point(data=cuttlefish, aes(x=lon, y=lat,
+                                  label=date),
+             colour="#EA6900", alpha=0.5) +
+  xlim(c(113.09, 153.38)) +
+  ylim(c(-43.38, -10.41)) +
+  theme_map()
+```
 
-- Plot occurrences on map for spatial distribution
+<!-- - Plot occurrences on map for spatial distribution
 - Aggregate occurrences on week or month or year to examine temporal patterns
-- Remember: this is sighting data, only available when people report
+- Remember: this is sighting data, only available when people report -->
 
 # Weather
+
 
 # Tourism
