@@ -26,8 +26,10 @@ There are several data sets in the package:
 #| message: false
 #| warning: false
 library(ecotourism)
+library(dplyr)
 library(ggplot2)
 library(ggthemes)
+library(lubridate)
 data(oz_lga)
 data(cuttlefish)
 ggplot(oz_lga) +
@@ -46,5 +48,41 @@ ggplot(oz_lga) +
 
 # Weather
 
+The weather data is used to understand if the sightings tend to happen when it is dry, or not to hot or cold.
+
+```{r weather}
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-width: 8
+#| fig-height: 2.5
+#| out-width: 100%
+data(weather)
+weather |>
+  mutate(month = month(date, label=TRUE, abbr=TRUE)) |>
+  ggplot(aes(x=month, y=prcp)) + 
+    geom_boxplot() + 
+    scale_y_log10() +
+    xlab("")
+```
 
 # Tourism
+
+The tourism records are to examine whether tourists might be visiting at peak sighting times.
+
+```{r tourism}
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-width: 8
+#| fig-height: 2.5
+#| out-width: 100%
+data(tourism)
+tourism |>
+  filter(Region == "Whyalla", Purpose == "Holiday") |>
+  mutate(Quarter = myd(Quarter)) |>
+  ggplot(aes(x=Quarter, y=Trips)) + 
+    geom_point() + 
+    geom_smooth(se = F) +
+    xlab("")
+```
